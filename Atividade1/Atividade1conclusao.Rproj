@@ -1,0 +1,29 @@
+dados<- rnorm(200,9.897,0.0987)
+
+hist(dados,
+     col = "lightblue",
+     freq = F,
+     main = "chapas De Aço",
+     xlab = "Espessuras de Chapas",
+     breaks = 20)
+curve(dnorm(x, mean = mean(dados), sd = sd(dados)), add = T)
+
+library(ggplot2)
+
+dados_0<- data.frame(espes = rnorm(200,9.897,0.0987))
+
+ggplot(dados_0)+
+  aes(x=espes)+
+  geom_histogram(fill="lightblue",
+                 col = "black",
+                 alpha = 0.5,
+                 bins = 20,
+                 aes(y=..density..))+
+  stat_function(fun = dnorm, args = list(mean = mean(dados_0$espes), sd=sd(dados_0$espes)))
+
+prob_maior_9.9<-1-pnorm(9.9,9.897,0.0987)
+prob_maior_9.9
+prob_maior_10.1<-1-pnorm(10.1,9.897,0.0987)
+prob_maior_10.1
+prob_maiorq_9.9_menorq_10.1 <- prob_maior_9.9 - prob_maior_10.1
+print(prob_maiorq_9.9_menorq_10.1)
